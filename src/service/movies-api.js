@@ -35,12 +35,12 @@ export const getMoviesByCast = async id => {
   const { data } = await axios.get(
     `${BASE_URL}${BY_ID}/${id}${CAST}?api_key=${API_KEY}&language=${LANGUAGE}`
   );
-  return data;
+  return data.cast;
 };
 
 export const getMoviesByRewiews = async id => {
   const { data } = await axios.get(
     `${BASE_URL}${BY_ID}/${id}${REVIEWS}?api_key=${API_KEY}&language=${LANGUAGE}`
   );
-  return data;
+  return data.results;
 };

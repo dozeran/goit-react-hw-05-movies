@@ -3,29 +3,20 @@ import SharedLayout from './SharedLayout/SharedLayout';
 import Home from 'pages/Home';
 import Movies from 'pages/Movies';
 import MovieDetails from 'pages/MovieDetails';
-import { useEffect, useState } from 'react';
-import { getMovies } from 'service/movies-api';
+import Cast from 'pages/Cast';
+import Reviews from 'pages/Reviews';
 
 export const App = () => {
-  const [movies, setMovies] = useState([]);
-
-  useEffect(() => {
-    fetchMoviesFromApi();
-  });
-
-  const fetchMoviesFromApi = () => {
-    const response = getMovies();
-    console.log(response);
-    // setMovies(prevMovies => [...movies, ...response.results]);
-  };
-
   return (
     <>
       <Routes>
         <Route path="/" element={<SharedLayout />}>
-          <Route index element={<Home movies={movies} />} />
-          <Route path="movies" element={<Movies />} />
-          <Route path="movies/:id" element={<MovieDetails />} />
+          <Route index element={<Home />} />
+          <Route path="/movies" element={<Movies />} />
+          <Route path="/movies/:movieId" element={<MovieDetails />}>
+            <Route path="cast" element={<Cast />} />
+            <Route path="reviews" element={<Reviews />} />
+          </Route>
         </Route>
       </Routes>
     </>
