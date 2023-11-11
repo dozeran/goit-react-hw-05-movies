@@ -1,6 +1,24 @@
-import React from 'react';
+import { useCallback, useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
+import { getMoviesByCast } from 'service/movies-api';
 
-const CastList = ({ actors }) => {
+const Cast = () => {
+  const [actors, setActors] = useState([]);
+  const { movieId } = useParams();
+
+  const fetchActorsById = useCallback(async () => {
+    try {
+      const castList = await getMoviesByCast(movieId);
+      setActors(castList);
+    } catch (error) {
+      console.error(error);
+    }
+  }, [movieId]);
+
+  useEffect(() => {
+    fetchActorsById();
+  }, [fetchActorsById]);
+
   const defaultImg =
     'https://ireland.apollo.olxcdn.com/v1/files/0iq0gb9ppip8-UA/image;s=1000x700';
   return (
@@ -26,4 +44,4 @@ const CastList = ({ actors }) => {
   );
 };
 
-export default CastList;
+export default Cast;

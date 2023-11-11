@@ -1,5 +1,4 @@
-import ReviewsList from 'components/Reviews/ReviewsList';
-import React, { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { getMoviesByRewiews } from 'service/movies-api';
 
@@ -19,7 +18,23 @@ const Reviews = () => {
   useEffect(() => {
     fetchReviewsById();
   }, [fetchReviewsById]);
-  return <ReviewsList reviews={reviews} />;
+
+  return (
+    <ul>
+      {reviews && reviews.length > 0 ? (
+        reviews.map(({ author, content, created_at }) => (
+          <li key={created_at}>
+            <p>
+              <b>Author: {author}</b>
+            </p>
+            <p>{content}</p>
+          </li>
+        ))
+      ) : (
+        <p>We don't have any reviews for this movie.</p>
+      )}
+    </ul>
+  );
 };
 
 export default Reviews;

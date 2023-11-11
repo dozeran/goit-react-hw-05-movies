@@ -1,5 +1,5 @@
 import MovieDetailsComp from 'components/MovieDetails/MovieDetailsComp';
-import { useCallback, useEffect, useState } from 'react';
+import { Suspense, useCallback, useEffect, useState } from 'react';
 import { Outlet, useParams } from 'react-router-dom';
 import { getMoviesById } from 'service/movies-api';
 
@@ -30,7 +30,9 @@ const MovieDetails = () => {
         overview={movie.overview}
         genres={movie.genres}
       />
-      <Outlet />
+      <Suspense>
+        <Outlet />
+      </Suspense>
     </>
   );
 };

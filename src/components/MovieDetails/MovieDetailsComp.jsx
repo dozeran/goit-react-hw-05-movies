@@ -1,5 +1,7 @@
-import { Link } from 'react-router-dom';
-import css from './MovieDetailsComp.module.css';
+import { Link, useLocation } from 'react-router-dom';
+import { MainInfo } from './MovieDetailsComp.styled';
+import BackLink from 'components/BackLink/BackLink';
+import { useRef } from 'react';
 
 const MovieDetailsComp = ({
   poster,
@@ -9,11 +11,14 @@ const MovieDetailsComp = ({
   overview,
   genres,
 }) => {
+  const location = useLocation();
+  const backLinkHref = useRef(location.state?.from ?? '/movies');
   const defaultImg =
     'https://ireland.apollo.olxcdn.com/v1/files/0iq0gb9ppip8-UA/image;s=1000x700';
   return (
     <>
-      <div className={css.mainInfo}>
+      <BackLink to={backLinkHref.current}>← Go back</BackLink>
+      <MainInfo>
         <div>
           <img
             src={
@@ -35,7 +40,7 @@ const MovieDetailsComp = ({
             {genres && genres.map(({ name, id }) => <li key={id}>{name}</li>)}
           </ul>
         </div>
-      </div>
+      </MainInfo>
       <p>Additional information</p>
       <ul>
         <li>
