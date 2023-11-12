@@ -1,10 +1,9 @@
+import MoviesComp from 'components/Movies/MoviesComp';
 import { useEffect, useState } from 'react';
-import { Link, useLocation } from 'react-router-dom';
 import { getMovies } from 'service/movies-api';
 
 const Home = () => {
   const [movies, setMovies] = useState([]);
-  const location = useLocation();
 
   useEffect(() => {
     fetchMoviesFromApi();
@@ -22,15 +21,7 @@ const Home = () => {
   return (
     <>
       <h1>Trending today</h1>
-      <ul>
-        {movies.map(movie => (
-          <li key={movie.id}>
-            <Link to={`/movies/${movie.id}`} state={{ from: location }}>
-              {movie.title}
-            </Link>
-          </li>
-        ))}
-      </ul>
+      <MoviesComp movies={movies} />
     </>
   );
 };
